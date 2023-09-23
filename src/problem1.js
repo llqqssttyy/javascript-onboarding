@@ -44,18 +44,21 @@ function validationCheck(pages) {
     const [left, right] = pages;
     const displayPages = `[${left}, ${right}]:`;
 
-    if (pages.length !== 2)
-        throw new Error(`${displayPages} 배열의 길이가 2가 아닙니다.`);
-    else if (right - left !== 1)
-        throw new Error(`${displayPages} 연속된 페이지가 아닙니다.`);
-    else if (left > 400 || right < 1)
-        throw new Error(
-            `${displayPages} 페이지가 범위에 맞지 않습니다.(1 ~ 400)`
-        );
-    else if (left % 2 !== 1)
-        throw new Error(`${displayPages} 왼쪽 페이지가 홀수가 아닙니다.`);
-    else if (right % 2 !== 0)
-        throw new Error(`${displayPages} 오른쪽 페이지가 짝수가 아닙니다.`);
+    function throwError(message) {
+        throw new Error(`${displayPages} ${message}`);
+    }
+
+    if (pages.length !== 2) {
+        throwError(`배열의 길이가 2가 아닙니다.`);
+    } else if (right - left !== 1) {
+        throwError(`연속된 페이지가 아닙니다.`);
+    } else if (left > 400 || right < 1) {
+        throwError(`페이지가 범위에 맞지 않습니다.(1 ~ 400)`);
+    } else if (left % 2 !== 1) {
+        throwError(`왼쪽 페이지가 홀수가 아닙니다.`);
+    } else if (right % 2 !== 0) {
+        throwError(`오른쪽 페이지가 짝수가 아닙니다.`);
+    }
     // 유효성 검사 통과
     else return pages;
 }
